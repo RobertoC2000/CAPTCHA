@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS reCAPTCHA validation</title>
+    <link rel="stylesheet" href="styles.css"/>
+
+    <style>
+        body{
+            background:khaki;
+            background: linear-gradient(to right, #ffa751, khaki)
+        }
+        .bg{
+            background-image: url(img/robot.jpg);
+            background-position: center center;
+            background-size:cover;
+        }
+    </style>
+
+</head>
+<body> 
+    <div class="container w-75 bg-primary mt-5 rounded shadow">
+        <div class="row align-items-stretch">
+            <div class="col bg d-none d-lg-block col-md-5 col-lg-5 col-xl-6">
+                        
+            </div>
+            <div class="col">
+                <div class="text-end">
+                    <img src="img/icono2.jpg" width="48" alt="">
+                </div>
+                
+                <h2 class="fw-bold text-center py-5">Bienvenido</h2>
+                
+                <!----- LOGIN ----->
+                
+                <form action="#">
+                    <div class="mb-4">
+                        <label for="email" class="form-label">Correo electrónico</label>
+                        <input type="email" class="form-control name="email">
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control name="password">
+                    </div>
+                    <div class="mb-4 form-check">
+                        <input type="cehckbox" name="connected" class="form-check-input">
+                        <lablel for="connected" class="form-check-label">Mantenerme conectado</label>
+                    </div>			
+                </form>
+
+                <!------CATPCHA ------>
+                <form method="post" onsubmit="return submitUserForm();">
+                    <div class="d-grid my-3">
+                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    </div>	
+                    <div class="my-3">
+                        <span> No tienes cuenta? <a href="#">Regístrate</a></span> <br>
+                        <span><a href="#">Recuperar Password</a></span>
+                    </div>	
+                    <div class="g-recaptcha" data-sitekey="6LcTmfQbAAAAAHYu5fE1pPdsYkQMMbB-lFNz5C9G" data-callback="verifyCaptcha"></div>
+                    <div id="g-recaptcha-error"></div>
+                </form>
+                <script src="https://www.google.com/recaptcha/api.js"></script>
+                <script>
+                function submitUserForm() {
+                    var response = grecaptcha.getResponse();
+                    console.log(response.length);
+                    if(response.length == 0) {
+                        document.getElementById('g-recaptcha-error').innerHTML = '<span style="color:red;">Este campo es obligatorio.</span>';
+                        return false;
+                    }
+                    return true;
+                }
+                
+                function verifyCaptcha() {
+                    console.log('verified');
+                    document.getElementById('g-recaptcha-error').innerHTML = '';
+                }
+                </script>
+                <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>
+
+<!-- <div class="row mt-2">
+    <div class="col d-flex justify-content-center">
+        <div class="frame d-flex align-content-center flex-wrap">
+            <div class="mx-auto">
+            </div>
+        </div>
+    </div>
+</div> -->
